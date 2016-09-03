@@ -16,6 +16,27 @@ Static+Dynamic inventory with modular plugin system, api and command line interf
 +/ansible-repo/bovine-inventory/plugins/
 ```
 
-### Plugins
+### Details
+
+#### bin
+
+#### static
+
+#### dynamic
+
+#### plugins
+
+## Plugins
 - ec2 (using ec2.py)
+- ec2_scale
+- vagrant
+- temp_node (a la test-kitchen)
+
+## TODO
+- [ ] static rendering
+- [ ] dynamic rendering
+- [ ] ec2 plugin
+- [ ] temp_node plugin
+- [ ] vagrant plugin
+
 
