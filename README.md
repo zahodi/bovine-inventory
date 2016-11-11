@@ -31,6 +31,7 @@ Static+Dynamic inventory with modular plugin system, api and command line interf
 - ec2_scale
 - vagrant
 - temp_node (a la test-kitchen)
+- triton (joyent)
 - digital ocean
 - linode
 - vultr
