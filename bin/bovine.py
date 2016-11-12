@@ -11,7 +11,7 @@ class Inventory:
     # get the files in the root_directory
     # self.
     self.root_directory = root_directory
-    # import the yaml from the files that we found above
+
   def get_file_names(self, root_directory):
     directory_files = os.walk(root_directory)
     filenames = []
@@ -22,6 +22,7 @@ class Inventory:
     # print(filenames)
 
 
+  # import the yaml from the files that we found above
   def import_yaml(self):
     load_of_yaml = []
     self.filenames = self.get_file_names(self.root_directory)
@@ -36,4 +37,8 @@ class Inventory:
     return self.inventory
 
 test_inventory = Inventory('../test/test_data')
-print(yaml.dump(test_inventory.get_inventory()))
+print(
+  yaml.dump(
+    test_inventory.get_inventory()
+  )
+)
