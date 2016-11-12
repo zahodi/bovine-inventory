@@ -19,29 +19,32 @@ class Inventory:
       for name in files:
         file_names.append(os.path.join(root, name))
 
-    self.file_names = file_names
+    return file_names
 
 
   # import the yaml from the files that we found above
   def import_yaml(self):
     load_of_yaml = []
 
-    self.get_file_names(self.root_directory)
+    file_names = self.get_file_names(self.root_directory)
 
-    for name in self.file_names:
+    for name in file_names:
       with open(name, 'r') as f:
         load_of_yaml = yaml.load(f)
 
-    self.load_of_yaml = load_of_yaml
+    return load_of_yaml
 
   def get_inventory(self):
-    self.import_yaml()
-    return self.load_of_yaml #defined in import_yaml method
+    self.load_of_yaml = self.import_yaml()
+
+  def print_inventory(self):
+    return self.load_of_yaml
 
 test_inventory = Inventory('../test/test_data')
+test_inventory.get_inventory()
 
 print(
   yaml.dump(
-    test_inventory.get_inventory()
+    test_inventory.print_inventory()
   )
 )
