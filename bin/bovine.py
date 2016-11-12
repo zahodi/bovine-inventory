@@ -33,8 +33,8 @@ class Inventory:
     self.load_of_yaml = load_of_yaml
 
   def get_inventory(self):
-    self.inventory = self.import_yaml()
-    return self.inventory
+    inventory = self.import_yaml()
+    return inventory
 
 test_inventory = Inventory('../test/test_data')
 print(
