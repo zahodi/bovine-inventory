@@ -18,8 +18,7 @@ class Inventory:
     for root, dirs, files in directory_files:
       for name in files:
         filenames.append(os.path.join(root, name))
-    return filenames
-    # print(filenames)
+    self.filenames = filenames
 
 
   # import the yaml from the files that we found above
@@ -29,7 +28,6 @@ class Inventory:
     for name in self.filenames:
       with open(name, 'r') as f:
         load_of_yaml = yaml.load(f)
-    return load_of_yaml
     self.load_of_yaml = load_of_yaml
 
   def get_inventory(self):
@@ -37,6 +35,7 @@ class Inventory:
     return inventory
 
 test_inventory = Inventory('../test/test_data')
+
 print(
   yaml.dump(
     test_inventory.get_inventory()
