@@ -12,6 +12,8 @@ Static+Dynamic inventory with modular plugin system, api and command line interf
 .
 +/ansible-repo/bovine-inventory/bin/
 +/ansible-repo/bovine-inventory/static/
++/ansible-repo/bovine-inventory/static/groups/
++/ansible-repo/bovine-inventory/static/hosts/
 +/ansible-repo/bovine-inventory/dynamic/
 +/ansible-repo/bovine-inventory/plugins/
 ```
@@ -21,10 +23,24 @@ Static+Dynamic inventory with modular plugin system, api and command line interf
 #### bin
 
 #### static
+Within the static folder, we have two primary subfolders that will contain a series of yaml files, named for the group or host.  Unlike v1 of the bovine-inventory, v2 doesn't allow a host or group to be defined more than once.  
+
+Each type may contain:
+---Groups---
+- hosts
+- vars
+- children
+
+---Hosts---
+- vars
 
 #### dynamic
 
 #### plugins
+
+## API
+
+## CLI usage
 
 ## Plugins
 - ec2 (using ec2.py)
@@ -38,8 +54,11 @@ Static+Dynamic inventory with modular plugin system, api and command line interf
 - gce
 
 ## TODO
-- [ ] static rendering
-- [ ] dynamic rendering
+- [ ] flesh out ORM for yml read/writes
+- [ ] class to calculate group hierarchy
+- [ ] complete API
+- [ ] complete CLI
+- [ ] dynamic vars
 - [ ] ec2 plugin
 - [ ] temp_node plugin
 - [ ] vagrant plugin
