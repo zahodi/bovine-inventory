@@ -6,7 +6,7 @@ import yaml
 ##########################
 
 
-class Inventory:
+class StaticInventory:
   def __init__(self, root_directory):
     # get the files in the root_directory
     self.root_directory = root_directory
@@ -40,7 +40,7 @@ class Inventory:
   def print_inventory(self):
     return self.load_of_yaml
 
-test_inventory = Inventory('../test/test_data')
+test_inventory = StaticInventory('../test/test_data')
 test_inventory.get_inventory()
 
 print(
