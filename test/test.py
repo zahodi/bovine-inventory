@@ -1,8 +1,20 @@
 #!/usr/bin/env python3
 import unittest
+import sys
+# import os
+# from .context import bovine
+
+# sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.append('lib/')
+from bovine import staticinventory
 
 
 class TestStringMethods(unittest.TestCase):
+
+    #################
+    # sanity tests
+    #################
+
     def test_upper(self):
         self.assertEqual('foo'.upper(), 'FOO')
 
@@ -16,6 +28,15 @@ class TestStringMethods(unittest.TestCase):
         # check that s.split fails when the separator is not a string
         with self.assertRaises(TypeError):
             s.split(2)
+
+
+class TestStaticInventory(unittest.TestCase):
+    ####################################
+    # Test bovine.StaticInventory module
+    #####################################
+    def test_static_inventory(self):
+        test_inventory = staticinventory('test_data')
+        self.assertEqual(test_inventory.get_inventory())
 
 if __name__ == '__main__':
     unittest.main()

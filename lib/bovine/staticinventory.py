@@ -39,12 +39,3 @@ class StaticInventory:
 
   def print_inventory(self):
     return self.load_of_yaml
-
-test_inventory = StaticInventory('../test/test_data')
-test_inventory.get_inventory()
-
-print(
-  yaml.dump(
-    test_inventory.print_inventory()
-  )
-)
