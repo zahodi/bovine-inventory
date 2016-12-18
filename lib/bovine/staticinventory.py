@@ -6,7 +6,7 @@ import yaml
 ##########################
 
 
-class StaticInventory:
+class GatherStaticInventory:
   def __init__(self, root_directory):
     # get the files in the root_directory
     self.root_directory = root_directory
