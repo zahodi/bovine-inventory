@@ -7,21 +7,13 @@ v2.0.0, 2016-12
 
 Detailed description of api docs here!
 
-:numbered:
-
 Hosts
 -----
 
-List all
-~~~~~~~~
-
-....
-/api/host/list
-....
-
-Example results
-~~~~~~~~~~~~~~~
-
+[nested]
+* List all
+  /api/host/list
+** Example results
 [source,json]
 ----
 {
@@ -33,16 +25,11 @@ Example results
   ]
 }
 ----
-
-[[search-for-specific-host]]
-Search for specific host
-~~~~~~~~~~~~~~~~~~~~~~~~~
-
+* Search for specific host
 ....
 /api/host/search?key=hostname
 ....
-
-Example results:
+** Example results:
 
 [source,json]
 ----
