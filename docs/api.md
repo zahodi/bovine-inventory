@@ -1,9 +1,24 @@
 # API for bovine-inventory
 
-## Host
+## Hosts
 
-### List hosts
-/api/v2.0/list
+### List all
+```/api/v2.0/host/list```
 
+### Search for specific host
+```/api/v2.0/host/search?key=hostname```
 
-## Group
+Returns:
+```
+{
+  "hosts": [
+    "host1",
+    "host2
+  ]
+}
+```
+
+## Groups
+
+List all:
+```/api/v2.0/group/list```
