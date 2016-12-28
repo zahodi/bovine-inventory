@@ -30,7 +30,7 @@ Hosts
 /api/host/search?key=hostname
 ....
 ** Example results:
-
++
 [source,json]
 ----
 {
