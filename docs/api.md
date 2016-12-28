@@ -5,22 +5,35 @@
 ### List all
 
 ```
-/api/v2.0/host/list
+/api/host/list
 ```
 
-### Search for specific host
-
-```
-/api/v2.0/host/search?key=hostname
-```
-
-Returns:
+Example results:
 
 ```json
 {
   "hosts": [
     "host1",
-    "host2
+    "host2",
+    "host9",
+    "host10"
+  ]
+}
+```
+
+### Search for specific host
+
+```
+/api/host/search?key=hostname
+```
+
+Example results:
+
+```json
+{
+  "hosts": [
+    "host1",
+    "host10"
   ]
 }
 ```
@@ -28,4 +41,16 @@ Returns:
 ## Groups
 
 List all:
-```/api/v2.0/group/list```
+```
+/api/group/list
+```
+
+## Specify api version
+
+Currently, only v2.0 of this api is available.  
+As new versions come out, we will strive for backward compatibility, and will always "attempt" to support previous versions of the api. 
+
+List all with api version:
+```
+/api/group/list?api_version=2.0
+```
