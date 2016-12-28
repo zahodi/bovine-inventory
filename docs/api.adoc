@@ -12,8 +12,12 @@ Hosts
 
 [nested]
 * List all
++
+[source]
+....
   /api/host/list
-** Example results
+....
+** Example results:
 +
 [source,json]
 ----
@@ -26,7 +30,10 @@ Hosts
   ]
 }
 ----
+
 * Search for specific host
++
+[source]
 ....
 /api/host/search?key=hostname
 ....
