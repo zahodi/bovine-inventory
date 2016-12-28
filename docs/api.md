@@ -3,13 +3,20 @@
 ## Hosts
 
 ### List all
-```/api/v2.0/host/list```
+
+```
+/api/v2.0/host/list
+```
 
 ### Search for specific host
-```/api/v2.0/host/search?key=hostname```
+
+```
+/api/v2.0/host/search?key=hostname
+```
 
 Returns:
-```
+
+```json
 {
   "hosts": [
     "host1",
