@@ -1,0 +1,75 @@
+API for bovine-inventory
+========================
+Shaun Smiley <senorsmile@gmail.com>
+v2.0.0, 2016-12
+:imagesdir: images
+:toc: preamble
+
+Detailed description of api docs here!
+
+Hosts
+-----
+
+[nested]
+* List all
++
+[source]
+....
+  /api/host/list
+....
+** Example results:
++
+[source,json]
+----
+{
+  "hosts": [
+    "host1",
+    "host2",
+    "host9",
+    "host10"
+  ]
+}
+----
+
+* Search for specific host
++
+[source]
+....
+/api/host/search?key=hostname
+....
+** Example results:
++
+[source,json]
+----
+{
+  "hosts": [
+    "host1",
+    "host10"
+  ]
+}
+----
+
+Groups
+-----
+
+[nested]
+* List all
++
+[source]
+....
+/api/group/list
+....
+
+Specify api version
+-------------------
+
+[nested]
+* Currently, only v2.0 of this api is available.
+As new versions come out, we will strive for backward compatibility, and
+will always "attempt" to support previous versions of the api.
+* List all with api version
++
+[source]
+....
+/api/group/list?api_version=2.0
+....
