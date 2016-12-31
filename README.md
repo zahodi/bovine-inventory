@@ -14,6 +14,7 @@ Static+Dynamic inventory with modular plugin system, api and command line interf
 +/ansible-repo/bovine-inventory/static/
 +/ansible-repo/bovine-inventory/static/groups/
 +/ansible-repo/bovine-inventory/static/hosts/
++/ansible-repo/bovine-inventory/static/.meta/
 +/ansible-repo/bovine-inventory/dynamic/
 +/ansible-repo/bovine-inventory/plugins/
 ```
