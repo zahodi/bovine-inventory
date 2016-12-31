@@ -41,6 +41,13 @@ class StaticInventory:
 
     pass
 
+  def _calc_meta_info(self):
+    '''
+    Calculate the meta information about groups and hosts.
+    i.e. build the tree of groups, sub groups etc.
+    '''
+
+    pass
 
   def get_file_names(self, root_directory):
     '''
