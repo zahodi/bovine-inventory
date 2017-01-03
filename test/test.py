@@ -35,8 +35,8 @@ class TestStaticInventory(unittest.TestCase):
     # Test bovine.StaticInventory module
     #####################################
     def test_static_inventory(self):
-        test_inventory = staticinventory.GatherStaticInventory('test_data')
-        self.assertIsInstance(test_inventory, staticinventory.GatherStaticInventory)
+        test_inventory = staticinventory.StaticInventory('test_data')
+        self.assertIsInstance(test_inventory, staticinventory.StaticInventory)
 
 if __name__ == '__main__':
     unittest.main()

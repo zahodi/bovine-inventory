@@ -1,4 +1,5 @@
 *.swp
+*.pyc
 .tox/
 __pycache__/
 bovine_venv/
