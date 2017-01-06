@@ -24,8 +24,12 @@ class StaticInventory:
       "_meta":  {},
     }
 
-  def get_all_groups(self):
-    ''' 
+    self._get_all_groups()
+    self._get_all_hosts()
+    self.calc_meta_info()
+
+  def _get_all_groups(self):
+    '''
     Walk the groups/ dir, saving all found groups
     Then, load all variables, hosts and child groups from each group
     '''
@@ -33,15 +37,15 @@ class StaticInventory:
     pass
 
 
-  def get_all_hosts(self):
-    ''' 
+  def _get_all_hosts(self):
+    '''
     Walk the hosts/ dir, saving all found hosts
     Then, load all variables from each host
     '''
 
     pass
 
-  def _calc_meta_info(self):
+  def calc_meta_info(self):
     '''
     Calculate the meta information about groups and hosts.
     i.e. build the tree of groups, sub groups etc.
