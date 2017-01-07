@@ -32,7 +32,8 @@ class StaticInventory:
 
     Then, load all variables, hosts and child groups from each group
     '''
-    os.listdir(self.root_directory + '/groups')
+    groups_directory = self.root_directory + '/groups'
+    os.listdir(groups_directory)
 
     pass
 
