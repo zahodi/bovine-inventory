@@ -4,8 +4,7 @@ import yaml
 
 class StaticInventory:
   def __init__(self, root_directory=None):
-    '''
-    Init instance
+    '''Init instance
 
     Optional args:
       # the root directory to find the hosts/ and groups/ directories
@@ -29,10 +28,11 @@ class StaticInventory:
     self.calc_meta_info()
 
   def _get_all_groups(self):
-    '''
-    Walk the groups/ dir, saving all found groups
+    '''Walk the groups/ dir, saving all found groups
+
     Then, load all variables, hosts and child groups from each group
     '''
+    os.listdir(self.root_directory + '/groups')
 
     pass
 
