@@ -18,9 +18,9 @@ class StaticInventory:
 
     # hosts and groups
     self.inventory = {
-      "hosts":  {},
-      "groups": {},
-      "_meta":  {},
+        "hosts":  {},
+        "groups": {},
+        "_meta":  {},
     }
 
     self._get_all_groups()
@@ -33,17 +33,35 @@ class StaticInventory:
     Then, load all variables, hosts and child groups from each group
     '''
     groups_directory = self.root_directory + '/groups'
-    os.listdir(groups_directory)
+    list_of_groups = os.listdir(groups_directory)
+    for i in list_of_groups:
+      #######################################################
+      # should we be checking if the file has .yml extension?
+      #######################################################
+      with open(groups_directory + '/' + i, 'r') as stream:
+        try:
+          print(yaml.safe_load(stream))
+        except yaml.YAMLError as exc:
+          print(exc)
 
     pass
-
 
   def _get_all_hosts(self):
     '''
     Walk the hosts/ dir, saving all found hosts
     Then, load all variables from each host
     '''
-
+    hosts_directory = self.root_directory + '/hosts'
+    list_of_hosts = os.listdir(hosts_directory)
+    for i in list_of_hosts:
+      #######################################################
+      # should we be checking if the file has .yml extension?
+      #######################################################
+      with open(hosts_directory + '/' + i, 'r') as stream:
+        try:
+          print(yaml.safe_load(stream))
+        except yaml.YAMLError as exc:
+          print(exc)
     pass
 
   def calc_meta_info(self):

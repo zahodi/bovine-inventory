@@ -1,4 +1,4 @@
 ---
-group1:
+host1:
   vars:
-    blah: blah
+    foo2: bar2

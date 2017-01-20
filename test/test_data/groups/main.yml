@@ -1,5 +1,7 @@
 ---
 groups:
-  hosts:
-    fist_host:
-      
+  main:
+    hosts:
+      first_host:
+  vars:
+    foo: bar
