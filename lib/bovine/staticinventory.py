@@ -36,7 +36,7 @@ class StaticInventory:
     list_of_groups = os.listdir(groups_directory)
     group_dic = {"groups": {}}
     for i in list_of_groups:
-      if i.lower().endswith(('.yml', '.yml')):
+      if i.lower().endswith(('.yml', '.yaml')):
         with open(groups_directory + '/' + i, 'r') as stream:
           try:
             fresh_dic = yaml.safe_load(stream)
