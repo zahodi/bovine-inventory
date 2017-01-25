@@ -1,4 +1,6 @@
 ---
-host1:
-  vars:
-    foo2: bar2
+groups:
+  main2:
+    host1:
+      vars:
+        foo2: bar2
