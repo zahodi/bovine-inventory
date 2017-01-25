@@ -34,17 +34,26 @@ class StaticInventory:
     '''
     groups_directory = self.root_directory + '/groups'
     list_of_groups = os.listdir(groups_directory)
+    group_dic = {"groups": {}}
     for i in list_of_groups:
-      #######################################################
-      # should we be checking if the file has .yml extension?
-      #######################################################
-      with open(groups_directory + '/' + i, 'r') as stream:
-        try:
-          print(yaml.safe_load(stream))
-        except yaml.YAMLError as exc:
-          print(exc)
+      if i.lower().endswith(('.yml', '.yml')):
+        with open(groups_directory + '/' + i, 'r') as stream:
+          try:
+            fresh_dic = yaml.safe_load(stream)
+            ###############################################
+            # An attempt to merge dictionary
+            # This is currently not working because
+            # this function is not itterating properly
+            # over list_of_groups
+            ############################################
+            group_dic = {**group_dic, **fresh_dic}
+            print(group_dic)
+            return group_dic
+          except yaml.YAMLError as exc:
+            print(exc)
+      else:
+        pass
 
-    pass
 
   def _get_all_hosts(self):
     '''
@@ -53,16 +62,17 @@ class StaticInventory:
     '''
     hosts_directory = self.root_directory + '/hosts'
     list_of_hosts = os.listdir(hosts_directory)
+    host_dic = {}
     for i in list_of_hosts:
-      #######################################################
-      # should we be checking if the file has .yml extension?
-      #######################################################
-      with open(hosts_directory + '/' + i, 'r') as stream:
-        try:
-          print(yaml.safe_load(stream))
-        except yaml.YAMLError as exc:
-          print(exc)
-    pass
+      if i.lower().endswith(('.yml', '.yml')):
+        with open(hosts_directory + '/' + i, 'r') as stream:
+          try:
+            host_dic = yaml.safe_load(stream)
+            return host_dic
+          except yaml.YAMLError as exc:
+            print(exc)
+      else:
+        pass
 
   def calc_meta_info(self):
     '''
