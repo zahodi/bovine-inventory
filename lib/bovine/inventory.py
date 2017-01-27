@@ -48,9 +48,9 @@ class StaticInventory:
             ## merge data into group_dict
             ## this ONLY works on python 3.5+
             ## this does NOT take into account the complexities
-            ##   of the data though.
+            ##   of the data though (i.e. it's only a shallow merge)
             ## this will be moved into the _parse_yaml() method,
-            ##   and will need to be expanded to cover all edge cases. 
+            ##   and will need to be expanded to deep deep dict merging.
             #--------------------------------
             group_dict = {**group_dict, **fresh_dic}
 
@@ -94,7 +94,7 @@ class StaticInventory:
   def _merge_dicts(self, dict1, dict2):
     '''
     Takes in two dicts of arbitrary nested levels, 
-    and intelligently merges them
+    and intelligently merges them (i.e. deep dict merge)
     '''
 
   def calc_meta_info(self):
