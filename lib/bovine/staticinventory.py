@@ -37,21 +37,29 @@ class StaticInventory:
     '''
     groups_directory = self.root_directory + 'groups/'
     list_of_groups = os.listdir(groups_directory)
-    group_dic = {"groups": {}}
-    for i in list_of_groups:
-      if i.lower().endswith(('.yml', '.yaml')):
-        with open(groups_directory + '/' + i, 'r') as stream:
+    group_dict = {"groups": {}}
+    for filename in list_of_groups:
+      if filename.lower().endswith(('.yml', '.yaml')):
+        with open(groups_directory + filename, 'r') as stream:
           try:
             fresh_dic = yaml.safe_load(stream)
-            ###############################################
-            # An attempt to merge dictionary
-            # This is currently not working because
-            # this function is not itterating properly
-            # over list_of_groups
-            ############################################
-            group_dic = {**group_dic, **fresh_dic}
-            print(group_dic)
-            return group_dic
+            
+            #--------------------------------
+            ## merge data into group_dict
+            ## this ONLY works on python 3.5+
+            ## this does NOT take into account the complexities
+            ##   of the data though.
+            ## this will be moved into the _parse_yaml() method,
+            ##   and will need to be expanded to cover all edge cases. 
+            #--------------------------------
+            group_dict = {**group_dict, **fresh_dic}
+
+            #--------------------------------
+            # delete below
+            #--------------------------------
+            print(group_dict)
+            return group_dict #we won't want to return, but actually merge with the self.inventory
+
           except yaml.YAMLError as exc:
             print(exc)
       else:
@@ -77,10 +85,19 @@ class StaticInventory:
       else:
         pass
 
+  def _parse_yaml(self,yml_obj):
+    '''
+    Take in data loaded from a yml file, 
+    and parse it for groups, hosts and vars.
+    '''
+
   def calc_meta_info(self):
     '''
     Calculate the meta information about groups and hosts.
     i.e. build the tree of groups, sub groups etc.
+
+    This method probably doesn't make sense any more. 
+    It will likely be deprecated shortly. 
     '''
 
     pass
