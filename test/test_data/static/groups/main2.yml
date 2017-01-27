@@ -1,8 +1,7 @@
 ---
-groups:
-  main2:
-    hosts:
-      fist_host:
+main2:
+  hosts:
+    fist_host:
   vars:
     group_name: main_group2
     group_purpose: testing

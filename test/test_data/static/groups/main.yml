@@ -1,7 +1,6 @@
 ---
-groups:
-  main:
-    hosts:
-      first_host:
+main:
+  hosts:
+    first_host:
   vars:
     foo: bar
