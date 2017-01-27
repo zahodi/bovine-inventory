@@ -91,6 +91,12 @@ class StaticInventory:
     and parse it for groups, hosts and vars.
     '''
 
+  def _merge_dicts(self, dict1, dict2):
+    '''
+    Takes in two dicts of arbitrary nested levels, 
+    and intelligently merges them
+    '''
+
   def calc_meta_info(self):
     '''
     Calculate the meta information about groups and hosts.
