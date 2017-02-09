@@ -42,7 +42,7 @@ class StaticInventory:
       if filename.lower().endswith(('.yml', '.yaml')):
         with open(groups_directory + filename, 'r') as stream:
           try:
-            fresh_dict = yaml.safe_load(stream)
+            temp_dict = yaml.safe_load(stream)
             
             #--------------------------------
             ## merge data into group_dict
@@ -54,9 +54,9 @@ class StaticInventory:
             #--------------------------------
             group_dict = {**group_dict, **fresh_dict}
 
-            #TODO: uncomment once _merge_dicts working
+            #TODO: uncomment below (and remove above) once _merge_dicts working
             #TODO: verify that passing these params by reference is not munging our data
-            # group_dict = _merge_dicts(group_dict,fresh_dict) 
+            # group_dict = _merge_dicts(group_dict,temp_dict) 
 
             #--------------------------------
             # delete below
