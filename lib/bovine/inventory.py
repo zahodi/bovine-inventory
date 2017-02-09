@@ -42,7 +42,7 @@ class StaticInventory:
       if filename.lower().endswith(('.yml', '.yaml')):
         with open(groups_directory + filename, 'r') as stream:
           try:
-            fresh_dic = yaml.safe_load(stream)
+            fresh_dict = yaml.safe_load(stream)
             
             #--------------------------------
             ## merge data into group_dict
@@ -52,19 +52,23 @@ class StaticInventory:
             ## this will be moved into the _parse_yaml() method,
             ##   and will need to be expanded to deep deep dict merging.
             #--------------------------------
-            group_dict = {**group_dict, **fresh_dic}
+            group_dict = {**group_dict, **fresh_dict}
+
+            #TODO: uncomment once _merge_dicts working
+            #TODO: verify that passing these params by reference is not munging our data
+            # group_dict = _merge_dicts(group_dict,fresh_dict) 
 
             #--------------------------------
             # delete below
             #--------------------------------
             print(group_dict)
-            return group_dict #we won't want to return, but actually merge with the self.inventory
 
           except yaml.YAMLError as exc:
             print(exc)
       else:
         pass
 
+    return group_dict #we won't want to return, but actually merge with the self.inventory
 
   def _get_all_hosts(self):
     '''
