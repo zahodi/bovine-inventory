@@ -43,32 +43,20 @@ class StaticInventory:
         with open(groups_directory + filename, 'r') as stream:
           try:
             temp_dict = yaml.safe_load(stream)
-            
-            #--------------------------------
-            ## merge data into group_dict
-            ## this ONLY works on python 3.5+
-            ## this does NOT take into account the complexities
-            ##   of the data though (i.e. it's only a shallow merge)
-            ## this will be moved into the _parse_yaml() method,
-            ##   and will need to be expanded to deep deep dict merging.
-            #--------------------------------
-            group_dict = {**group_dict, **fresh_dict}
 
             #TODO: uncomment below (and remove above) once _merge_dicts working
             #TODO: verify that passing these params by reference is not munging our data
-            # group_dict = _merge_dicts(group_dict,temp_dict) 
+            group_dict = self._merge_dicts(group_dict, temp_dict)
 
-            #--------------------------------
-            # delete below
-            #--------------------------------
-            print(group_dict)
 
           except yaml.YAMLError as exc:
             print(exc)
       else:
         pass
 
+    print(group_dict)
     return group_dict #we won't want to return, but actually merge with the self.inventory
+
 
   def _get_all_hosts(self):
     '''
@@ -89,25 +77,71 @@ class StaticInventory:
       else:
         pass
 
-  def _parse_yaml(self,yml_obj):
+  def _parse_yaml(self, yml_obj):
     '''
-    Take in data loaded from a yml file, 
+    Take in data loaded from a yml file,
     and parse it for groups, hosts and vars.
     '''
 
-  def _merge_dicts(self, dict1, dict2):
-    '''
-    Takes in two dicts of arbitrary nested levels, 
+  def _merge_dicts(self, a, b):
+    '''Takes in two dicts of arbitrary nested levels,
     and intelligently merges them (i.e. deep dict merge)
+
+    merges b into a and returns merged result
+    NOTE: tuples and arbitrary objects are not handled
+          as it is totally ambiguous what should happen
     '''
+
+    key = None
+
+    # ## debug output
+    # sys.stderr.write("DEBUG: %s to %s\n" %(b,a))
+
+    try:
+      if ( a is None or isinstance(a, str)
+           or isinstance(a, unicode)
+           or isinstance(a, int)
+           or isinstance(a, long)
+           or isinstance(a, float)
+      ):
+        # border case for first run or if a is a primitive
+        a = b
+      elif isinstance(a, list):
+        # lists can be only appended
+        if isinstance(b, list):
+          # merge lists
+          #a.extend(b)
+          #a.extend(b)
+          for item in b:
+            if item not in a:
+              #a.extend(item)
+              a.append(item)
+        else:
+          # append to list
+            a.append(b)
+      elif isinstance(a, dict):
+        # dicts must be merged
+        if isinstance(b, dict):
+          for key in b:
+            if key in a:
+              a[key] = data_merge(a[key], b[key])
+            else:
+              a[key] = b[key]
+        else:
+          raise YamlReaderError('Cannot merge non-dict "%s" into dict "%s"' % (b, a))
+      else:
+        raise YamlReaderError('NOT IMPLEMENTED "%s" into "%s"' % (b, a))
+    except TypeError as e:
+      raise YamlReaderError('TypeError "%s" in key "%s" when merging "%s" into "%s"' % (e, key, b, a))
+    return a
 
   def calc_meta_info(self):
     '''
     Calculate the meta information about groups and hosts.
     i.e. build the tree of groups, sub groups etc.
 
-    This method probably doesn't make sense any more. 
-    It will likely be deprecated shortly. 
+    This method probably doesn't make sense any more.
+    It will likely be deprecated shortly.
     '''
 
     pass
