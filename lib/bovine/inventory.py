@@ -2,6 +2,7 @@
 import os
 import yaml
 
+
 class StaticInventory:
   def __init__(self, root_directory=None):
     '''Init instance
@@ -18,9 +19,9 @@ class StaticInventory:
 
     # hosts and groups
     self.inventory = {
-        "hosts":  {},
+        "hosts": {},
         "groups": {},
-        "_meta":  {},
+        "_meta": {}
     }
 
     self._get_all_groups()
@@ -42,12 +43,8 @@ class StaticInventory:
       if filename.lower().endswith(('.yml', '.yaml')):
         with open(groups_directory + filename, 'r') as stream:
           try:
-            temp_dict = yaml.safe_load(stream)
-
-            #TODO: uncomment below (and remove above) once _merge_dicts working
-            #TODO: verify that passing these params by reference is not munging our data
-            group_dict = self._merge_dicts(group_dict, temp_dict)
-
+            group_dict = yaml.safe_load(stream)
+            self._merge_dicts(self.inventory, group_dict)
 
           except yaml.YAMLError as exc:
             print(exc)
@@ -55,8 +52,6 @@ class StaticInventory:
         pass
 
     print(group_dict)
-    return group_dict #we won't want to return, but actually merge with the self.inventory
-
 
   def _get_all_hosts(self):
     '''
@@ -93,17 +88,12 @@ class StaticInventory:
     '''
 
     key = None
-
-    # ## debug output
-    # sys.stderr.write("DEBUG: %s to %s\n" %(b,a))
-
+      # or isinstance(a, unicode)
     try:
-      if ( a is None or isinstance(a, str)
-           or isinstance(a, unicode)
+      if (a is None or isinstance(a, str)
            or isinstance(a, int)
-           or isinstance(a, long)
            or isinstance(a, float)
-      ):
+         ):
         # border case for first run or if a is a primitive
         a = b
       elif isinstance(a, list):
