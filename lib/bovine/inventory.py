@@ -2,7 +2,6 @@
 import os
 import yaml
 
-
 class StaticInventory:
   def __init__(self, root_directory=None):
     '''Init instance
@@ -50,8 +49,6 @@ class StaticInventory:
             print(exc)
       else:
         pass
-
-    print(group_dict)
 
   def _get_all_hosts(self):
     '''
@@ -135,51 +132,3 @@ class StaticInventory:
     '''
 
     pass
-
-#  def get_file_names(self, root_directory):
-#    '''
-#    NB: This method to be deprecated
-#    Walks directory to get all files as a list
-#    '''
-#    directory_files = os.walk(root_directory)
-#    file_names = []
-#
-#    for root, dirs, files in directory_files:
-#      for name in files:
-#        file_names.append(os.path.join(root, name))
-#
-#    return file_names
-#
-#
-#  # import the yaml from the files that we found above
-#  def import_yaml(self):
-#    '''
-#    NB: This method to be deprecated
-#    Loads yaml from found files and converts to native python objects
-#    '''
-#
-#    load_of_yaml = []
-#
-#    file_names = self.get_file_names(self.root_directory)
-#
-#    for name in file_names:
-#      with open(name, 'r') as f:
-#        load_of_yaml = yaml.load(f)
-#
-#    return load_of_yaml
-#
-#
-#  def get_inventory(self):
-#    '''
-#    NB: This method to be deprecated
-#    '''
-#
-#    self.load_of_yaml = self.import_yaml()
-#
-#
-#  def print_inventory(self):
-#    '''
-#    NB: This method to be deprecated
-#    '''
-#
-#    return self.load_of_yaml
