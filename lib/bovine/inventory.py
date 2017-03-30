@@ -18,7 +18,7 @@ class StaticInventory:
 
     # hosts and groups
     self.inventory = {
-        "hosts": {},
+        "_tree": {},
         "groups": {},
         "_meta": {}
     }
