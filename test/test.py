@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import unittest
 import sys
+from pprint import pprint
 # import os
 # from .context import bovine
 
@@ -37,7 +38,7 @@ class TestStaticInventory(unittest.TestCase):
     def test_static_inventory(self):
         test_inventory = StaticInventory(root_directory='test/test_data/static/')
         self.assertIsInstance(test_inventory, StaticInventory)
-        print(test_inventory.inventory)
+        pprint(test_inventory.inventory)
 
 if __name__ == '__main__':
     unittest.main()

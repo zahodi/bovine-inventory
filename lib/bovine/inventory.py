@@ -18,9 +18,11 @@ class StaticInventory:
 
     # hosts and groups
     self.inventory = {
-        "_tree": {},
-        "groups": {},
-        "_meta": {}
+      "_tree": {},
+      "groups": {},
+      "_meta": {
+        "hostvars": {}
+      }
     }
 
     self._get_all_groups()
@@ -43,7 +45,7 @@ class StaticInventory:
         with open(groups_directory + filename, 'r') as stream:
           try:
             group_dict = yaml.safe_load(stream)
-            self._merge_dicts(self.inventory, group_dict)
+            self._merge_dicts(self.inventory['groups'], group_dict)
 
           except yaml.YAMLError as exc:
             print(exc)
@@ -57,13 +59,13 @@ class StaticInventory:
     '''
     hosts_directory = self.root_directory + '/hosts'
     list_of_hosts = os.listdir(hosts_directory)
-    host_dic = {}
+    host_dic = {"hostvars": {}}
     for i in list_of_hosts:
       if i.lower().endswith(('.yml', '.yml')):
         with open(hosts_directory + '/' + i, 'r') as stream:
           try:
             host_dic = yaml.safe_load(stream)
-            return host_dic
+            self._merge_dicts(self.inventory['_meta']['hostvars'], host_dic)
           except yaml.YAMLError as exc:
             print(exc)
       else:
@@ -111,7 +113,7 @@ class StaticInventory:
         if isinstance(b, dict):
           for key in b:
             if key in a:
-              a[key] = data_merge(a[key], b[key])
+              a[key] = self._merge_dicts(a[key], b[key])
             else:
               a[key] = b[key]
         else:
