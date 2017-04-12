@@ -56,7 +56,7 @@ class StaticInventory:
     Walk the hosts/ dir, saving all found hosts
     Then, load all variables from each host
     '''
-    hosts_directory = self.root_directory + '/hosts'
+    hosts_directory = self.root_directory + 'hosts/'
     list_of_hosts = os.listdir(hosts_directory)
     host_dic = {"hostvars": {}}
     for i in list_of_hosts:
