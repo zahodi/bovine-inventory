@@ -36,11 +36,18 @@ class StaticInventory:
 
     Then, load all variables, hosts and child groups from each group
     '''
-    groups_directory = self.root_directory + 'groups/'
-    list_of_groups = os.listdir(groups_directory)
+
+    # initialize vars
     group_dict = {"groups": {}}
+    groups_directory = self.root_directory + 'groups/'
+
+    # get list of all files in the ./groups/ dir
+    # NB: we do NOT recurse, as we expect that all 
+    #     yaml files will be at the top level
+    list_of_groups = os.listdir(groups_directory)
+
     for filename in list_of_groups:
-      if filename.lower().endswith(('.yml', '.yaml')):
+      if filename.lower().endswith(('.yml', '.yaml')): #ignore non yaml files
         with open(groups_directory + filename, 'r') as stream:
           try:
             group_dict = yaml.safe_load(stream)
