@@ -1,6 +1,10 @@
 ---
 main2:
+  children:
+    - main3
+
   hosts:
-    second_host:
+    - second_host
+
   vars:
     foo: baz

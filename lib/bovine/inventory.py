@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import os
 import yaml
+import sys
 
 class StaticInventory:
   def __init__(self, root_directory=None):
@@ -18,18 +19,25 @@ class StaticInventory:
 
     # hosts and groups
     self.inventory = {
-      "_group_tree": {},
       "groups": {},
-      "hosts": {
-      }
+      "hosts": {},
+      "group_tree": {
+        "top_level_groups": {}, #a tree starting with top level group, tracing all the way down
+        "children_groups": {}, # each child group contains a key "parent_groups"
+      },
     }
 
     self._get_all_groups()
     self._get_all_hosts()
-    self.calc_group_tree()
+    self._calc_group_tree()
 
   def debug_print(self):
-    print(self.inventory)
+    print(
+        json.dumps(
+            self.inventory,
+            indent=4,
+        )
+    )
 
   def _get_all_groups(self):
     '''Walk the groups/ dir, saving all found groups
@@ -51,6 +59,8 @@ class StaticInventory:
         with open(groups_directory + filename, 'r') as stream:
           try:
             group_dict = yaml.safe_load(stream)
+            # TODO: check that we have the proper structure?
+            #       i.e. vars: {}, children: [], hosts: []
             self._merge_dicts(self.inventory['groups'], group_dict)
 
           except yaml.YAMLError as exc:
@@ -132,10 +142,48 @@ class StaticInventory:
       raise YamlReaderError('TypeError "%s" in key "%s" when merging "%s" into "%s"' % (e, key, b, a))
     return a
 
-  def calc_group_tree(self):
+  def _calc_group_tree(self):
     '''
     Calculate the group tree for all hosts and groups.
     i.e. build the tree of groups, sub groups and all hosts at each level.
     '''
+
+    for group in self.inventory['groups']:
+        # init temp vars
+        is_group_top_level = False
+        parent_groups = []
+        is_parent_group_top_level = False
+
+        # add group to top_level_groups ?
+        if group not in self.inventory['group_tree']['children_groups']:
+            if group not in self.inventory['group_tree']['top_level_groups']:
+                self.inventory['group_tree']['top_level_groups'][group] = {}
+                is_group_top_level = True
+
+        # find this group's place in the top_level_groups tree structure
+        if not is_group_top_level:
+            if group in self.inventory['group_tree']['children_groups']:
+                parent_groups = self.inventory['group_tree']['children_groups'][group]['parent_groups']
+                for parent_group in parent_groups:
+                    if parent_group in self.inventory['group_tree']['top_level_groups']:
+                        is_parent_group_top_level = True
+                        if group not in self.inventory['group_tree']['top_level_groups'][parent_group]: 
+                            self.inventory['group_tree']['top_level_groups'][parent_group][group] = {}
+                # TODO: our parent group is NOT in top_level, so we have to locate where it's at
+                # TODO: what if the parent group hasn't been loaded yet? (we'll never find it)
+                #if not is_parent_group_top_level:
+                    
+                    
+        # TODO: if group is later found to be a child, remove from top_level_groups
+
+        # add this groups children to children_groups
+        if 'children' in self.inventory['groups'][group]:
+            # TODO: add each child group to proper place in top_level_groups
+
+            # add each child group to childen_groups
+            for child_group in self.inventory['groups'][group]['children']:
+                # set initial parent_group if not already in children_groups
+                if child_group not in self.inventory['group_tree']['children_groups']:
+                    self.inventory['group_tree']['children_groups'][child_group] = { "parent_groups": [group] }
 
     pass
