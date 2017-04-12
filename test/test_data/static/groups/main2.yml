@@ -1,5 +1,5 @@
 ---
-all:
+main2:
   hosts:
     second_host:
   vars:
