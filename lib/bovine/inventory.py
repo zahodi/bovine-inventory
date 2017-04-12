@@ -26,7 +26,7 @@ class StaticInventory:
 
     self._get_all_groups()
     self._get_all_hosts()
-    self.calc_meta_info()
+    self.calc_group_tree()
 
   def debug_print(self):
     print(self.inventory)
@@ -123,13 +123,10 @@ class StaticInventory:
       raise YamlReaderError('TypeError "%s" in key "%s" when merging "%s" into "%s"' % (e, key, b, a))
     return a
 
-  def calc_meta_info(self):
+  def calc_group_tree(self):
     '''
-    Calculate the meta information about groups and hosts.
-    i.e. build the tree of groups, sub groups etc.
-
-    This method probably doesn't make sense any more.
-    It will likely be deprecated shortly.
+    Calculate the group tree for all hosts and groups.
+    i.e. build the tree of groups, sub groups and all hosts at each level.
     '''
 
     pass
