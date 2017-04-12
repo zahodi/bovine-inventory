@@ -64,7 +64,7 @@ class StaticInventory:
         with open(hosts_directory + '/' + i, 'r') as stream:
           try:
             host_dic = yaml.safe_load(stream)
-            self._merge_dicts(self.inventory['_meta']['hostvars'], host_dic)
+            self._merge_dicts(self.inventory['hosts'], host_dic)
           except yaml.YAMLError as exc:
             print(exc)
       else:
