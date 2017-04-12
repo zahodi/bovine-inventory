@@ -65,13 +65,15 @@ class StaticInventory:
     '''
     hosts_directory = self.root_directory + 'hosts/'
     list_of_hosts = os.listdir(hosts_directory)
-    host_dic = {"hostvars": {}}
+    temp_hosts = {"hosts": {} }
     for i in list_of_hosts:
       if i.lower().endswith(('.yml', '.yml')):
         with open(hosts_directory + '/' + i, 'r') as stream:
           try:
-            host_dic = yaml.safe_load(stream)
-            self._merge_dicts(self.inventory['hosts'], host_dic)
+            host_dict = yaml.safe_load(stream)
+            for temp_host in host_dict['groups']['all']['hosts']:
+                temp_hosts['hosts'][temp_host] = host_dict['groups']['all']['hosts'][temp_host]
+            self._merge_dicts(self.inventory, temp_hosts)
           except yaml.YAMLError as exc:
             print(exc)
       else:
