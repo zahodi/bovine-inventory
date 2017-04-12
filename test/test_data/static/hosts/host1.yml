@@ -1,6 +1,5 @@
 ---
-groups:
-  all:
-    hosts:
-      host1:
-        foo1: bar1
+all:
+  hosts:
+    host1:
+      foo1: bar1
