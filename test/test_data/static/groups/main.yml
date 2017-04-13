@@ -1,0 +1,10 @@
+---
+main:
+  children:
+    - main2
+
+  hosts:
+    - first_host
+
+  vars:
+    foo: bar

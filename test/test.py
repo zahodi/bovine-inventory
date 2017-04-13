@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 import unittest
 import sys
+import json
 # import os
 # from .context import bovine
 
 # sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 sys.path.append('lib/')
-from bovine import staticinventory
+from bovine.inventory import *
 
 
 class TestStringMethods(unittest.TestCase):
@@ -35,8 +36,14 @@ class TestStaticInventory(unittest.TestCase):
     # Test bovine.StaticInventory module
     #####################################
     def test_static_inventory(self):
-        test_inventory = staticinventory.StaticInventory('test_data')
-        self.assertIsInstance(test_inventory, staticinventory.StaticInventory)
+        test_inventory = StaticInventory(root_directory='test/test_data/static/')
+        self.assertIsInstance(test_inventory, StaticInventory)
+        print(
+            json.dumps(
+                test_inventory.inventory,
+                indent=4
+            )
+        )
 
 if __name__ == '__main__':
     unittest.main()
