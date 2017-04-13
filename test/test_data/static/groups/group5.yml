@@ -1,0 +1,7 @@
+---
+group5:
+  children:
+    - group4
+
+  hosts:
+    - host5
