@@ -40,6 +40,12 @@ class TestStaticInventory(unittest.TestCase):
 
     def test_static_inventory(self):
         self.assertIsInstance(self.test_inventory, StaticInventory)
+        print(
+            json.dumps(
+                self.test_inventory.inventory,
+                indent=4
+            )
+        )
 
     def test_keys_present(self):
         self.assertTrue("groups" in self.test_inventory.inventory)
@@ -56,22 +62,14 @@ class TestStaticInventory(unittest.TestCase):
             "host5": { "foo": "bar5" },
             "host6": { "foo": "bar6" },
         }
-        self.assertDictEqual(hosts_should_have, self.test_inventory.inventory['hosts'])
+        self.assertCountEqual(hosts_should_have, self.test_inventory.inventory['hosts'])
 
     def test_top_level_groups(self):
-        top_level_groups_should_have = [
-            "group1",
-            "group6",
-        ]
+        top_level_groups_should_have = {
+            "group1": {},
+            "group6": {},
+        }
         self.assertCountEqual(top_level_groups_should_have, self.test_inventory.inventory['top_level_groups'])
-
-    def print_static_inventory(self):
-        print(
-            json.dumps(
-                self.test_inventory.inventory,
-                indent=4
-            )
-        )
 
 if __name__ == '__main__':
     unittest.main()
