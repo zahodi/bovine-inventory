@@ -1,0 +1,5 @@
+---
+all:
+  hosts:
+    host6:
+      foo: bar6

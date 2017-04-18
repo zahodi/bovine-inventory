@@ -1,5 +1,5 @@
 ---
 all:
   hosts:
-    vars:
+    host5:
       foo: bar5

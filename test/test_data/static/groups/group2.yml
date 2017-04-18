@@ -1,10 +1,10 @@
 ---
-main2:
+group2:
   children:
-    - main3
+    - group3
 
   hosts:
-    - second_host
+    - host2
 
   vars:
     foo: baz
