@@ -49,7 +49,8 @@ Each type may contain:
 - ec2 (using ec2.py)
 - ec2_scale
 - vagrant
-- temp_node (a la test-kitchen)
+- temp_node (simpler test-kitchen)
+- test_kitchen
 - triton (joyent)
 - digital ocean
 - linode
@@ -58,7 +59,7 @@ Each type may contain:
 
 ## TODO
 - [ ] flesh out ORM for yml read/writes
-- [ ] class to calculate group hierarchy
+- [x] class to calculate group hierarchy
 - [ ] complete API
 - [ ] complete CLI
 - [ ] dynamic vars
