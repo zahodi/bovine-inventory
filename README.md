@@ -64,6 +64,7 @@ Each type may contain:
 - [ ] complete CLI
 - [ ] dynamic vars
 - [ ] ec2 plugin
+- [ ] test ec2 blue/green deployment / upgrades
 - [ ] temp_node plugin
 - [ ] vagrant plugin
 
