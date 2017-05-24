@@ -57,7 +57,7 @@ This directory will contain symlinks to plugins from bin/plugins/.  Any director
 - ec2 (using ec2.py)
 - ec2_scale
 - vagrant
-- temp_node (simpler test-kitchen)
+- test_node (simpler test-kitchen)
 - test_kitchen
 - triton (joyent)
 - digital ocean
@@ -73,7 +73,7 @@ This directory will contain symlinks to plugins from bin/plugins/.  Any director
 - [ ] dynamic vars
 - [ ] ec2 plugin
 - [ ] test ec2 blue/green deployment / upgrades
-- [ ] temp_node plugin
+- [ ] test_node plugin
 - [ ] vagrant plugin
 
 
