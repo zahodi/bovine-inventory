@@ -24,6 +24,12 @@ Static+Dynamic inventory with modular plugin system, api and command line interf
 ### Details
 
 #### bin
+Whithin the bin folder, we will have the main entry point script:
+bovine_inventory.py
+
+as well as the rest of this repo:
+lib/bovine
+plugins/
 
 #### static
 Within the static folder, we have two primary subfolders that will contain a series of yaml files, named for the group or host.  Unlike v1 of the bovine-inventory, v2 doesn't allow a host or group to be defined more than once.  
@@ -38,8 +44,10 @@ Each type may contain:
 - vars
 
 #### dynamic
+This directory is where a user can put any scripts (preferably Python) to manipulate the inventory at the last stage before it is sent to Ansible.  This is where the truly "dynamic" portion of the inventory will allow one to add/change the inventory based on custom business logic. 
 
 #### plugins
+This directory will contain symlinks to plugins from bin/plugins/.  Any directories symlinked here will be "activated", the same way that apache2 on debian based systems and icinga2 works.  
 
 ## API
 
