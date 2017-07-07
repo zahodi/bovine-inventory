@@ -1,7 +1,8 @@
-API for bovine-inventory
+API for bovine-inventory
 ========================
 Shaun Smiley <senorsmile@gmail.com>
 v2.0.0, 2016-12
+
 :imagesdir: images
 :toc: preamble
 
@@ -11,11 +12,11 @@ Hosts
 -----
 
 [nested]
-* List all
+* All host resources
 +
 [source]
 ....
-  /api/host/list
+GET /api/hosts/all
 ....
 ** Example results:
 +
@@ -28,36 +29,50 @@ Hosts
     "host9",
     "host10"
   ]
-}
-----
+}----
 
-* Search for specific host
+* Grab a specific host
 +
 [source]
 ....
-/api/host/search?key=hostname
+GET /api/hosts/hostname
 ....
 ** Example results:
 +
 [source,json]
 ----
 {
-  "hosts": [
-    "host1",
-    "host10"
-  ]
+  "host1": {
+    "vars": {
+      "food": "bar",
+      "var1": "item"
+    }
+  }
 }
 ----
+
+* Add a new host
++
+[source]
+....
+PUT /api/hosts/newhostname
+....
+
+* Delete a hostname
+[source]
+....
+DELETE /api/hosts/existinghostname
+....
 
 Groups
 -----
 
 [nested]
-* List all
+* All groups
 +
 [source]
 ....
-/api/group/list
+GET /api/group/all
 ....
 
 Specify api version
