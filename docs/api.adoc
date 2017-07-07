@@ -2,7 +2,6 @@
 ========================
 Shaun Smiley <senorsmile@gmail.com>
 v2.0.0, 2016-12
-
 :imagesdir: images
 :toc: preamble
 
