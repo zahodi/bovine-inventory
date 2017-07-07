@@ -1,4 +1,4 @@
-API for bovine-inventory
+API for bovine-inventory
 ========================
 Shaun Smiley <senorsmile@gmail.com>
 v2.0.0, 2016-12
