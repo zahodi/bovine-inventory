@@ -7,34 +7,60 @@ v2.0.0, 2016-12
 
 Detailed description of api docs here!
 
-Hosts
+Search
 -----
-
 [nested]
-* All host resources
+* Search for host or group
 +
 [source]
 ....
-GET /api/hosts/all
+GET /api/search?type=any&name=web_hosts
 ....
 ** Example results:
 +
 [source,json]
 ----
 {
-  "hosts": [
-    "host1",
-    "host2",
-    "host9",
-    "host10"
+  "status": "success",
+  "data": [
+   "host1",
+   "host2",
+   "webhost1"
   ]
-}----
+}
+----
 
-* Grab a specific host
+Hostvars
+--------
+
+[nested]
+* Retrieve a host and it's vars
 +
 [source]
 ....
-GET /api/hosts/hostname
+GET /api/hostvars?name=host1
+....
+** Example results:
++
+[source,json]
+----
+{
+  "status": "successful",
+  "data": {
+  "host": "host1",
+  "vars": {
+    "foo": "bar",
+    "var": "1"
+    }
+  }
+}
+----
+
+* Retrieve a specific hosts and a specific variable
++
+[source]
+....
+GET /api/hostvars?name=host1&var=foo
 ....
 ** Example results:
 +
