@@ -10,7 +10,7 @@ Detailed description of api docs here!
 Search
 -----
 [nested]
-* Search for host or group
+* Search for host or group. Specify type as group, host, or any.
 +
 [source]
 ....
@@ -22,10 +22,15 @@ GET /api/search?type=any&name=web_hosts
 ----
 {
   "status": "success",
-  "data": [
-   "host1",
-   "host2",
+  "code": 200,
+  "data": {
+  "groups": [
+    "webhosts1",
+    "webhosts2"
+    ],
+  "hosts": [
    "webhost1"
+   "webhost2"
   ]
 }
 ----
@@ -46,7 +51,9 @@ GET /api/hostvars?name=host1
 ----
 {
   "status": "successful",
+  "code": 200,
   "data": {
+  "parent_group": "group1",
   "host": "host1",
   "vars": {
     "foo": "bar",
@@ -56,7 +63,7 @@ GET /api/hostvars?name=host1
 }
 ----
 
-* Retrieve a specific hosts and a specific variable
+* Retrieve a specific variable for a host
 +
 [source]
 ....
@@ -68,6 +75,7 @@ GET /api/hostvars?name=host1&var=foo
 ----
 {
   "status": "successful",
+  "code": 200,
   "data": {
   "host": "host1",
   "vars": {
@@ -92,7 +100,8 @@ POST /api/hostvars?name=newhostname
   "code": 201
 }
 ----
-* Update or add a new var to a host. If the variable is already present it will update it's value. If value already matches nothing will happen
+* Update or add a new var to a host.
+This call is idempotent, so if a value already matches no changes will be made.
 +
 [source]
 ....
@@ -119,12 +128,34 @@ Groups
 -----
 
 [nested]
-* All groups
+* Get a group.
 +
 [source]
 ....
 GET /api/groupvars?name=group_name
 ....
+** Example response:
++
+[source,json]
+----
+{
+  "status": "successful",
+  "code": 200,
+  "data": {
+    "group_name": "group1",
+    "parent_group": "all",
+    "hosts": [
+      "host1",
+      "host2",
+      "host2"
+    ],
+    "vars" : {
+      "var1": 1,
+      "var2": 2
+    }
+  }
+}
+----
 
 Get top level groups
 --------------------
@@ -140,7 +171,12 @@ GET /api/top_level_groups
 ----
 {
   "status": "successful",
-  "code": 200
+  "code": 200,
+  "data": [
+    "webhosts",
+    "db_server",
+    "logs",
+  ]
 }
 ----
 
