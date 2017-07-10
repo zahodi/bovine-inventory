@@ -10,7 +10,8 @@ Detailed description of api docs here!
 Search
 -----
 [nested]
-* Search for host or group. Specify type as group, host, or any.
+* Search for host or group.
+Specify type as  a group, host, or any to limit the search.
 +
 [source]
 ....
@@ -39,7 +40,7 @@ Hostvars
 --------
 
 [nested]
-* Retrieve a host and it's vars
+* Retrieve a host and it's vars.
 +
 [source]
 ....
@@ -53,17 +54,17 @@ GET /api/hostvars?name=host1
   "status": "successful",
   "code": 200,
   "data": {
-  "parent_group": "group1",
-  "host": "host1",
-  "vars": {
-    "foo": "bar",
-    "var": "1"
+    "parent_group": "group1",
+    "host": "host1",
+    "vars": {
+      "foo": "bar",
+      "var": "1"
+      }
     }
-  }
 }
 ----
 
-* Retrieve a specific variable for a host
+* Retrieve a specific variable for that host.
 +
 [source]
 ....
@@ -77,11 +78,11 @@ GET /api/hostvars?name=host1&var=foo
   "status": "successful",
   "code": 200,
   "data": {
-  "host": "host1",
-  "vars": {
-    "foo": "bar",
+    "host": "host1",
+    "vars": {
+      "foo": "bar",
+      }
     }
-  }
 }
 ----
 
@@ -97,7 +98,7 @@ POST /api/hostvars?name=newhostname
 ----
 {
   "status": "successful",
-  "code": 201
+  "code": 201,
 }
 ----
 * Update or add a new var to a host.
@@ -126,6 +127,15 @@ DELETE /api/hostvars?name=name_of_the_host
 
 Groups
 -----
+** Example response:
++
+[source,json]
+----
+{
+  "status": "successful",
+  "code": 204
+}
+----
 
 [nested]
 * Get a group.
@@ -191,5 +201,33 @@ will always "attempt" to support previous versions of the api.
 +
 [source]
 ....
-/api/group/list?api_version=2.0
+GET /api/search?api_version=2.0
 ....
+
+Misc
+----
+
+[nested]
+* Requesting missing a missing host or group will come back with a 404.
+** Example response:
++
+[source,json]
+----
+{
+  "status": "fail",
+  "code": 404,
+  "data": {"host_name": "Host/group is not available"}
+}
+----
+* Invalid requests will also come back with failure.
+** Example response:
++
+[source,json]
+----
+{
+  "status": "fail",
+  "code": 400,
+  "data": {"name": "group or a host host name is required"}
+}
+----
+* Top level groups can not deleted without all the child groups or hosts being removed.
