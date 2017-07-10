@@ -67,10 +67,11 @@ GET /api/hostvars?name=host1&var=foo
 [source,json]
 ----
 {
-  "host1": {
-    "vars": {
-      "food": "bar",
-      "var1": "item"
+  "status": "successful",
+  "data": {
+  "host": "host1",
+  "vars": {
+    "foo": "bar",
     }
   }
 }
@@ -80,13 +81,38 @@ GET /api/hostvars?name=host1&var=foo
 +
 [source]
 ....
-PUT /api/hosts/newhostname
+POST /api/hostvars?name=newhostname
 ....
-
-* Delete a hostname
+** Example response:
++
+[source,json]
+----
+{
+  "status": "successful",
+  "code": 201
+}
+----
+* Update or add a new var to a host. If the variable is already present it will update it's value. If value already matches nothing will happen
++
 [source]
 ....
-DELETE /api/hosts/existinghostname
+PUT /api/hostvars?name=newhostname&var1=1
+....
+** Example response:
++
+[source,json]
+----
+{
+  "status": "successful",
+  "code": 200
+}
+----
+
+
+* Delete a host
+[source]
+....
+DELETE /api/hostvars?name=name_of_the_host
 ....
 
 Groups
@@ -97,8 +123,26 @@ Groups
 +
 [source]
 ....
-GET /api/group/all
+GET /api/groupvars?name=group_name
 ....
+
+Get top level groups
+--------------------
+
+[nested]
+[source]
+....
+GET /api/top_level_groups
+....
+** Example response:
++
+[source,json]
+----
+{
+  "status": "successful",
+  "code": 200
+}
+----
 
 Specify api version
 -------------------
