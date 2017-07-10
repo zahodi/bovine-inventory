@@ -7,8 +7,15 @@ v2.0.0, 2016-12
 
 Detailed description of api docs here!
 
-GET Search
-----------
+
+Search
+------
+[literal]
+Search the inventory for host or group. Specify a type and a name when searching.
+Host, group, or any types are allowed.
+
+GET /api/search
+~~~~~~~~~~~~~~~
 [nested]
 * Search for host or group.
 Specify type as  a group, host, or any to limit the search.
@@ -35,10 +42,18 @@ GET /api/search?type=any&name=web
 }
 ----
 ** HTTP response code: 200
+** Allowed types:
+*** any
+*** host
+*** group
 
-GET Hostvars
-------------
+Hostvars
+--------
+[literal]
+Wall of text to go here
 
+GET /api/hostvars
+~~~~~~~~~~~~~~~~~
 [nested]
 * Retrieve a host and it's vars.
 +
@@ -55,7 +70,7 @@ GET /api/hostvars?name=host1
   "data": {
     "parent_groups": [
       "group1",
-    ]
+    ],
     "host": "host1",
     "vars": {
       "foo": "bar",
@@ -88,8 +103,12 @@ GET /api/hostvars?name=host1&var=foo
 ----
 ** HTTP response code: 200
 
-* Add a new host
-+
+
+
+
+
+POST /api/hostvars
+~~~~~~~~~~~~~~~~~~
 [source]
 ....
 POST /api/hostvars?name=newhostname
@@ -103,9 +122,13 @@ POST /api/hostvars?name=newhostname
 }
 ----
 ** HTTP response code: 200
-* Update or add a new var to a host.
+
+PUT /api/hostvars
+~~~~~~~~~~~~~~~~~
+[literal]
+Update or add a new var to a host.
 This call is idempotent, so if a value already matches no changes will be made.
-+
+
 [source]
 ....
 PUT /api/hostvars?name=newhostname&var1=1
@@ -121,7 +144,10 @@ PUT /api/hostvars?name=newhostname&var1=1
 ** HTTP response code: 200
 
 
-* Delete a host
+DELETE /api/hostvars
+~~~~~~~~~~~~~~~~~~~~
+[literal]
+delete a host from the inventory
 [source]
 ....
 DELETE /api/hostvars?name=name_of_the_host
