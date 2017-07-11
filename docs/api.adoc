@@ -204,7 +204,7 @@ GET /api/groupvars?name=group1
 ** Response will include parent_groups, hosts, vars, and children(nested groups.)
 
 POST /api/groupvars
-~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~
 [source]
 ....
 GET /api/groupvars?name=group2
@@ -219,14 +219,27 @@ GET /api/groupvars?name=group2
 ----
 ** HTTP response code: 201
 
-Get top level groups
---------------------
-
 PUT /api/groupvars
 ~~~~~~~~~~~~~~~~~~
 [source]
 ....
 GET /api/groupvars?name=group2&var1=1&children=group20
+....
+** Example response:
++
+[source,json]
+----
+{
+  "status": "successful",
+}
+----
+** HTTP response code: 200
+
+DELETE /api/groupvars
+~~~~~~~~~~~~~~~~~~~~~
+[source]
+....
+GET /api/groupvars?name=group10
 ....
 ** Example response:
 +
