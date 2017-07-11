@@ -266,7 +266,7 @@ GET /api/groupvars?name=group10
   "status": "successful",
 }
 ----
-** HTTP response code: 200
+** HTTP response code: 204
 
 
 Get top level groups
@@ -284,7 +284,7 @@ GET /api/top_level_groups
   "status": "successful",
   "data": [
     "webhosts",
-    "db_server",
+    "db_servers",
     "logs",
   ]
 }
