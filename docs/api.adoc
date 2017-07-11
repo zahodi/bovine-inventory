@@ -47,10 +47,18 @@ GET /api/search?type=any&name=web
 *** host
 *** group
 
+
+
+
+
 Hostvars
 --------
 [literal]
-Wall of text to go here
+Access or edit the hosts information.
+
+* Allowed parameters:
+** name
+** vars
 
 GET /api/hostvars
 ~~~~~~~~~~~~~~~~~
@@ -80,6 +88,7 @@ GET /api/hostvars?name=host1
 }
 ----
 ** HTTP response code: 200
+
 
 * Retrieve a specific variable for that host.
 +
@@ -166,6 +175,14 @@ DELETE /api/hostvars?name=name_of_the_host
 Groupvars
 ---------
 
+[literal]
+Access or edit the group information.
+
+* Allowed parameters:
+** name: specify the name of the group
+** vars: key=values pairs
+** children: specify the child group(s)
+
 GET /api/groupvars
 ~~~~~~~~~~~~~~~~~~
 [source]
@@ -250,6 +267,7 @@ GET /api/groupvars?name=group10
 }
 ----
 ** HTTP response code: 200
+
 
 Get top level groups
 --------------------
