@@ -273,20 +273,6 @@ GET /api/top_level_groups
 ----
 ** HTTP response code: 200
 
-Specify api version
--------------------
-
-[nested]
-* Currently, only v2.0 of this api is available.
-As new versions come out, we will strive for backward compatibility, and
-will always "attempt" to support previous versions of the api.
-* List all with api version
-+
-[source]
-....
-GET /api/search?api_version=2.0
-....
-
 Misc
 ----
 
