@@ -7,69 +7,321 @@ v2.0.0, 2016-12
 
 Detailed description of api docs here!
 
-Hosts
------
 
+Search
+------
+[literal]
+Search the inventory for host or group. Specify a type and a name when searching.
+Host, group, or any types are allowed.
+
+GET /api/search
+~~~~~~~~~~~~~~~
 [nested]
-* List all
+* Search for host or group.
+Specify type as  a group, host, or any to limit the search.
 +
 [source]
 ....
-  /api/host/list
+GET /api/search?type=any&name=web
 ....
 ** Example results:
 +
 [source,json]
 ----
 {
+  "status": "success",
+  "data": {
+  "groups": [
+    "webhosts1",
+    "webhosts2"
+    ],
   "hosts": [
-    "host1",
-    "host2",
-    "host9",
-    "host10"
+   "webhost1"
+   "webhost2"
   ]
 }
 ----
+** Normal HTTP response code: 200
+** Allowed types:
+*** any
+*** host
+*** group
 
-* Search for specific host
+
+
+
+
+Hostvars
+--------
+[literal]
+Access or edit the hosts information.
+
+* Allowed parameters:
+** name
+** vars
+
+GET /api/hostvars
+~~~~~~~~~~~~~~~~~
+[nested]
+* Retrieve a host and it's vars.
 +
 [source]
 ....
-/api/host/search?key=hostname
+GET /api/hostvars?name=host1
 ....
 ** Example results:
 +
 [source,json]
 ----
 {
-  "hosts": [
-    "host1",
-    "host10"
+  "status": "successful",
+  "data": {
+    "parent_groups": [
+      "group1",
+    ],
+    "host": "host1",
+    "vars": {
+      "foo": "bar",
+      "var": "1"
+      }
+    }
+}
+----
+** Normal HTTP response code: 200
+
+
+* Retrieve a specific variable for that host.
++
+[source]
+....
+GET /api/hostvars?name=host1&var=foo
+....
+** Example results:
++
+[source,json]
+----
+{
+  "status": "successful",
+  "data": {
+    "host": "host1",
+    "vars": {
+      "foo": "bar",
+      }
+    }
+}
+----
+** Normal HTTP response code: 200
+
+
+
+
+
+POST /api/hostvars
+~~~~~~~~~~~~~~~~~~
+[literal]
+create a new host in the inventory. Name parameter is required.
+
+
+[source]
+....
+POST /api/hostvars?name=newhostname
+....
+** Example response:
++
+[source,json]
+----
+{
+  "status": "successful",
+}
+----
+** Normal HTTP response code: 201
+
+PUT /api/hostvars
+~~~~~~~~~~~~~~~~~
+[literal]
+Update or add a new var to a host.
+This call is idempotent, so if a value already matches no changes will be made.
+
+[source]
+....
+PUT /api/hostvars?name=newhostname&var1=1
+....
+** Example response:
++
+[source,json]
+----
+{
+  "status": "successful",
+}
+----
+** Normal HTTP response code: 200
+
+
+DELETE /api/hostvars
+~~~~~~~~~~~~~~~~~~~~
+[literal]
+Delete a host from the inventory. Name of the host must be specified
+
+[source]
+....
+DELETE /api/hostvars?name=name_of_the_host
+....
+** Example response:
++
+[source,json]
+----
+{
+  "status": "successful",
+}
+----
+** Normal HTTP response code: 204
+
+Groupvars
+---------
+
+[literal]
+Access or edit the group information.
+
+* Allowed parameters:
+** name: specify the name of the group
+** vars: key=values pairs
+** children: specify the child group(s)
+
+GET /api/groupvars
+~~~~~~~~~~~~~~~~~~
+[source]
+....
+GET /api/groupvars?name=group1
+....
+** Example response:
++
+[source,json]
+----
+{
+  "status": "successful",
+  "data": {
+    "group_name": "group1",
+    "parent_groups": [
+      "group2",
+      "group3"
+    ],
+    "hosts": [
+      "host1",
+      "host2",
+      "host2"
+    ],
+    "vars" : {
+      "var1": 1,
+      "var2": 2
+    },
+    "children": [
+      "group6",
+      "group20"
+    ],
+  }
+}
+----
+** Normal HTTP response code: 200
+** Response will include parent_groups, hosts, vars, and children(nested groups.)
+
+POST /api/groupvars
+~~~~~~~~~~~~~~~~~~~
+[literal]
+Create a new group in the inventory. Name parameter is required.
+
+[source]
+....
+GET /api/groupvars?name=group2
+....
+** Example response:
++
+[source,json]
+----
+{
+  "status": "successful",
+}
+----
+** Normal HTTP response code: 201
+
+PUT /api/groupvars
+~~~~~~~~~~~~~~~~~~
+[source]
+....
+GET /api/groupvars?name=group2&var1=1&children=group20
+....
+** Example response:
++
+[source,json]
+----
+{
+  "status": "successful",
+}
+----
+** Normal HTTP response code: 200
+
+DELETE /api/groupvars
+~~~~~~~~~~~~~~~~~~~~~
+[source]
+....
+GET /api/groupvars?name=group10
+....
+** Example response:
++
+[source,json]
+----
+{
+  "status": "successful",
+}
+----
+** Normal HTTP response code: 204
+
+
+Get top level groups
+--------------------
+[nested]
+[source]
+....
+GET /api/top_level_groups
+....
+** Example response:
++
+[source,json]
+----
+{
+  "status": "successful",
+  "data": [
+    "webhosts",
+    "db_servers",
+    "logs",
   ]
 }
 ----
+** Normal HTTP response code: 200
 
-Groups
------
-
-[nested]
-* List all
-+
-[source]
-....
-/api/group/list
-....
-
-Specify api version
--------------------
+Misc
+----
 
 [nested]
-* Currently, only v2.0 of this api is available.
-As new versions come out, we will strive for backward compatibility, and
-will always "attempt" to support previous versions of the api.
-* List all with api version
+* Requesting a missing host or group will come back with a 404.
+** Example response:
 +
-[source]
-....
-/api/group/list?api_version=2.0
-....
+[source,json]
+----
+{
+  "status": "fail",
+  "data": {"host_name": "Host/group is not available"}
+}
+----
+** Normal HTTP response code: 404
+* Invalid requests will also come back with failure.
+** Example response:
++
+[source,json]
+----
+{
+  "status": "fail",
+  "data": {"name": "group or a host host name is required"}
+}
+----
+** Normal HTTP response code: 400
+* Top level groups can not deleted without all the child groups or hosts being removed.
