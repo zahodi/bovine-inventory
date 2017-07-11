@@ -41,7 +41,7 @@ GET /api/search?type=any&name=web
   ]
 }
 ----
-** HTTP response code: 200
+** Normal HTTP response code: 200
 ** Allowed types:
 *** any
 *** host
@@ -87,7 +87,7 @@ GET /api/hostvars?name=host1
     }
 }
 ----
-** HTTP response code: 200
+** Normal HTTP response code: 200
 
 
 * Retrieve a specific variable for that host.
@@ -110,7 +110,7 @@ GET /api/hostvars?name=host1&var=foo
     }
 }
 ----
-** HTTP response code: 200
+** Normal HTTP response code: 200
 
 
 
@@ -118,6 +118,10 @@ GET /api/hostvars?name=host1&var=foo
 
 POST /api/hostvars
 ~~~~~~~~~~~~~~~~~~
+[literal]
+create a new host in the inventory. Name parameter is required.
+
+
 [source]
 ....
 POST /api/hostvars?name=newhostname
@@ -130,7 +134,7 @@ POST /api/hostvars?name=newhostname
   "status": "successful",
 }
 ----
-** HTTP response code: 201
+** Normal HTTP response code: 201
 
 PUT /api/hostvars
 ~~~~~~~~~~~~~~~~~
@@ -150,7 +154,7 @@ PUT /api/hostvars?name=newhostname&var1=1
   "status": "successful",
 }
 ----
-** HTTP response code: 200
+** Normal HTTP response code: 200
 
 
 DELETE /api/hostvars
@@ -170,7 +174,7 @@ DELETE /api/hostvars?name=name_of_the_host
   "status": "successful",
 }
 ----
-** HTTP response code: 204
+** Normal HTTP response code: 204
 
 Groupvars
 ---------
@@ -217,11 +221,14 @@ GET /api/groupvars?name=group1
   }
 }
 ----
-** HTTP response code: 200
+** Normal HTTP response code: 200
 ** Response will include parent_groups, hosts, vars, and children(nested groups.)
 
 POST /api/groupvars
 ~~~~~~~~~~~~~~~~~~~
+[literal]
+Create a new group in the inventory. Name parameter is required.
+
 [source]
 ....
 GET /api/groupvars?name=group2
@@ -234,7 +241,7 @@ GET /api/groupvars?name=group2
   "status": "successful",
 }
 ----
-** HTTP response code: 201
+** Normal HTTP response code: 201
 
 PUT /api/groupvars
 ~~~~~~~~~~~~~~~~~~
@@ -250,7 +257,7 @@ GET /api/groupvars?name=group2&var1=1&children=group20
   "status": "successful",
 }
 ----
-** HTTP response code: 200
+** Normal HTTP response code: 200
 
 DELETE /api/groupvars
 ~~~~~~~~~~~~~~~~~~~~~
@@ -266,7 +273,7 @@ GET /api/groupvars?name=group10
   "status": "successful",
 }
 ----
-** HTTP response code: 204
+** Normal HTTP response code: 204
 
 
 Get top level groups
@@ -289,7 +296,7 @@ GET /api/top_level_groups
   ]
 }
 ----
-** HTTP response code: 200
+** Normal HTTP response code: 200
 
 Misc
 ----
@@ -305,7 +312,7 @@ Misc
   "data": {"host_name": "Host/group is not available"}
 }
 ----
-** HTTP response code: 404
+** Normal HTTP response code: 404
 * Invalid requests will also come back with failure.
 ** Example response:
 +
@@ -316,5 +323,5 @@ Misc
   "data": {"name": "group or a host host name is required"}
 }
 ----
-** HTTP response code: 400
+** Normal HTTP response code: 400
 * Top level groups can not deleted without all the child groups or hosts being removed.
