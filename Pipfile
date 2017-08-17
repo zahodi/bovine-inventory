@@ -1,0 +1,18 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+
+[packages]
+pyaml = "16.9.0"
+sqlalchemy-migrate = "*"
+guess-language = "*"
+flipflop = "*"
+coverage = "*"
+Flask = "*"
+Flask-Login = "*"
+Flask-OpenID = "*"
+Flask-Mail = "*"
+Flask-SQLAlchemy = "*"
+Flask-WhooshAlchemy = "*"
+Flask-WTF = "*"
+Flask-Babel = "*"
