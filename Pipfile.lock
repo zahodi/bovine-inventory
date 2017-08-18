@@ -89,12 +89,16 @@
             "version": "==6.7"
         },
         "coverage": {
-            "hash": "sha256:700040c354f0230287906b1276635552a3def4b646e0145555bc9e2e5da9e365",
+            "hash": "sha256:c820a533a943ebc860acc0ce6a00dd36e0fdf2c6f619ff8225755169428c5fa2",
             "version": "==4.4.1"
         },
         "decorator": {
             "hash": "sha256:95a26b17806e284452bfd97fa20aa1e8cb4ee23542bda4dbac5e4562aa1642cd",
             "version": "==4.1.2"
+        },
+        "defusedxml": {
+            "hash": "sha256:702a91ade2968a82beb0db1e0766a6a273f33d4616a6ce8cde475d8e09853b20",
+            "version": "==0.5.0"
         },
         "flipflop": {
             "hash": "sha256:32a23ed7bdb53bab03271c4c92abceae1ee3a337dd7fd5a18334fd64930ebcfd",
@@ -116,9 +120,9 @@
             "hash": "sha256:4c260fcc58cd452c87611b280c96823b0589d7caffaa4c11038b475f05326535",
             "version": "==17.8.0"
         },
-        "python-openid": {
-            "hash": "sha256:92c51c3ecec846cbec4aeff11f9ff47303d4a63f93b0e6ac0ec02a091fed70ef",
-            "version": "==2.2.5"
+        "python3-openid": {
+            "hash": "sha256:0086da6b6ef3161cfe50fb1ee5cceaf2cda1700019fda03c2c5c440ca6abe4fa",
+            "version": "==3.1.0"
         },
         "pytz": {
             "hash": "sha256:d1d6729c85acea5423671382868627129432fba9a89ecbb248d8d1c7a9f01c67",
@@ -129,7 +133,7 @@
             "version": "==1.10.0"
         },
         "sqlalchemy-migrate": {
-            "hash": "sha256:14e020626ba256a272f46bf15508d6cce4f715dec6430601a37f0e97bb256785",
+            "hash": "sha256:e68af5e3e0561f629d4eb23d9d0ea77d2649747f2eff37fd29aece74615ca251",
             "version": "==0.11.0"
         },
         "sqlparse": {
