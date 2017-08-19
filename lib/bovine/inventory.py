@@ -68,7 +68,8 @@ class StaticInventory:
         pass
 
   def _get_all_hosts(self):
-    '''
+    '''Get all hosts
+
     Walk the hosts/ dir, saving all found hosts
     Then, load all variables from each host
     '''
@@ -89,7 +90,8 @@ class StaticInventory:
         pass
 
   def _parse_yaml(self, yml_obj):
-    '''
+    '''parse yaml
+
     Take in data loaded from a yml file,
     and parse it for groups, hosts and vars.
     '''
