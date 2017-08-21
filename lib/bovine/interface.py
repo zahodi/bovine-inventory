@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from bovine import bovine
+from bovine import app
 from bovine.inventory import *
 import json
 
