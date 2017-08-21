@@ -1,0 +1,5 @@
+---
+all:
+  hosts:
+    web_host2:
+      url: web_host2

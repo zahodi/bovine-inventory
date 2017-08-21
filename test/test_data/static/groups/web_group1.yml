@@ -1,0 +1,7 @@
+---
+web_group1:
+  children:
+    - web_group2
+
+  hosts:
+    - web_host1
