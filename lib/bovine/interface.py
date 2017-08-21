@@ -15,8 +15,32 @@ class Interface(object):
     self.inventory = self.get_all()
 
   def get_all(self):
+    """Return the whole inventory
+
+    We will get the whole inventory
+    """
     test_inventory = StaticInventory(root_directory='../test/test_data/static/')
     return test_inventory.inventory
 
-  def search(self, hostname):
-    return self.inventory['hosts'][hostname]
+  def search(self, inv_type, keyword):
+    """Search the inventory
+
+    Any, hosts, and groups types are allowed.
+    """
+    if (inv_type == 'hosts') or (inv_type == 'groups'):
+      return self.inventory[inv_type][keyword]
+    elif inv_type == 'any':
+      response_info = {
+        "status": "success",  # to add failure later
+        "data": {
+          "groups": [],
+          "hosts": []
+        }
+      }
+      for i in self.inventory:
+        return i
+        if keyword in i:
+          pass
+
+    else:
+      pass  # fail because only hosts, groups, or any are allowed in the "types"

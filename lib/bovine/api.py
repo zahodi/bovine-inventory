@@ -16,8 +16,10 @@ def setUp():
 
 @bovine.route('/bovine-api/search', methods=['GET'])
 def api_search():
-  test_inventory = bovine_interface.search("host1")
-  return json.dumps(test_inventory, indent=4)
+  params = request.args
+  if 'type' in params:
+    response_info = bovine_interface.search(inv_type=params['type'], keyword=params['name'])
+    return json.dumps(response_info, indent=4)
 
 
 @bovine.route('/bovine-api/hostvars', methods=['GET'])
