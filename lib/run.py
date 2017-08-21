@@ -1,3 +1,7 @@
 #!/usr/bin/env python3
 from bovine import bovine
-bovine.run(threaded=True, debug=True)
+bovine.run(
+    ## TODO: don't hardcode these
+    threaded=True,
+    debug=True
+)
