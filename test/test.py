@@ -42,7 +42,6 @@ class TestStaticInventory(unittest.TestCase):
             "host6": {"foo": "bar6"},
             "web_host1": {"url": "web_host1"},
             "web_host2": {"url": "web_host2"},
-
         }
         self.assertCountEqual(hosts_should_have, self.test_inventory.inventory['hosts'])
 
