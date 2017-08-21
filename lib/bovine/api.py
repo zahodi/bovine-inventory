@@ -2,15 +2,13 @@ from bovine import bovine
 from bovine.interface import Interface
 from flask import request
 import json
-import requests
-
 
 bovine_interface = Interface()
 
 
 @bovine.route('/bovine-api/')
 def setUp():
-  test_inventory = Interface.get_all()
+  test_inventory = bovine_interface.get_all()
   return json.dumps(test_inventory, indent=4)
 
 
