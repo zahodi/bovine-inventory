@@ -28,7 +28,8 @@ class Interface(object):
     if (inv_type == 'hosts') or (inv_type == 'groups'):
       result = [i for i in self.inventory[inv_type] if re.search(keyword, i)]
     else:
-      pass
+      # Possily in future enable search on both types
+      result = "Wrong type"
 
     if result == []:
       result = "no results"

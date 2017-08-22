@@ -11,3 +11,4 @@ flask-babel
 guess_language
 flipflop
 coverage
+requests

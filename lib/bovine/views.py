@@ -7,6 +7,11 @@ bovine_interface = Interface()
 
 
 @api.route('/api/')
+def api_info():
+  return json.dumps({"hello": "world"}, indent=4)
+
+
+@api.route('/api/all')
 def return_all():
   test_inventory = bovine_interface.get_all()
   return json.dumps(test_inventory, indent=4)
