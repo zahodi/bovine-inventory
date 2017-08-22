@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 from bovine.inventory import StaticInventory
+import re
 
 
 class Interface(object):
@@ -25,23 +26,11 @@ class Interface(object):
     Any, hosts, and groups types are allowed.
     """
     if (inv_type == 'hosts') or (inv_type == 'groups'):
-      return self.inventory[inv_type][keyword]
-    elif inv_type == 'any':
-      list_of_groups = []
-      list_of_hosts = []
-      response_info = {
-        "status": "success",  # to add failure later
-        "data": {
-          "groups": list_of_groups,
-          "hosts": list_of_hosts
-        }
-      }
-      if keyword in self.inventory['groups']:
-        list_of_groups.append(keyword)
-      if keyword in self.inventory['hosts']:
-        list_of_hosts.append(keyword)
-
+      result = [i for i in self.inventory[inv_type] if re.search(keyword, i)]
     else:
-      pass  # fail because only hosts, groups, or any are allowed in the "types"
+      result = "no results"
 
-    return response_info
+    return result
+
+  def re_filter(self, pattern, string):
+     return re.match(pattern, string)
