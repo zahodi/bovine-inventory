@@ -16,7 +16,7 @@ class Interface(object):
 
     We will get the whole inventory
     """
-    test_inventory = StaticInventory(root_directory='../test/test_data/static/')
+    test_inventory = StaticInventory(root_directory='test/test_data/static/')
     return test_inventory.inventory
 
   def search(self, inv_type, keyword):

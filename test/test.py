@@ -2,12 +2,9 @@
 import unittest
 import sys
 import json
-# import os
-# from .context import bovine
 
-# sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 sys.path.append('lib/')
-from bovine.inventory import *
+from bovine.inventory import StaticInventory
 
 
 class TestStaticInventory(unittest.TestCase):
@@ -49,6 +46,7 @@ class TestStaticInventory(unittest.TestCase):
         top_level_groups_should_have = {
             "group1": {},
             "group6": {},
+            "web_group1": {},
         }
         self.assertCountEqual(top_level_groups_should_have, self.test_inventory.inventory['top_level_groups'])
 
