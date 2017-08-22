@@ -28,9 +28,9 @@ class Interface(object):
     if (inv_type == 'hosts') or (inv_type == 'groups'):
       result = [i for i in self.inventory[inv_type] if re.search(keyword, i)]
     else:
+      pass
+
+    if result == []:
       result = "no results"
 
     return result
-
-  def re_filter(self, pattern, string):
-     return re.match(pattern, string)
