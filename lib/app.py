@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-from bovine import app
+from bovine import api
 
-app.run(
+api.run(
     ## TODO: don't hardcode these
     threaded=True,
     debug=True

@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
-
-from bovine import app
-from bovine.inventory import *
-import json
+from bovine.inventory import StaticInventory
 
 
 class Interface(object):
