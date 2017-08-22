@@ -1,0 +1,7 @@
+---
+web_group2:
+  vars:
+    url: website.local
+
+  hosts:
+    - web_host2

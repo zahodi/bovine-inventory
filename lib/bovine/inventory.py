@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 import os
 import yaml
-import sys
+# import sys
+
 
 class StaticInventory:
   def __init__(self, root_directory=None):
@@ -48,7 +49,7 @@ class StaticInventory:
     groups_directory = self.root_directory + 'groups/'
 
     # get list of all files in the ./groups/ dir
-    # NB: we do NOT recurse, as we expect that all 
+    # NB: we do NOT recurse, as we expect that all
     #     yaml files will be at the top level
     list_of_groups = os.listdir(groups_directory)
 
@@ -67,7 +68,8 @@ class StaticInventory:
         pass
 
   def _get_all_hosts(self):
-    '''
+    '''Get all hosts
+
     Walk the hosts/ dir, saving all found hosts
     Then, load all variables from each host
     '''
@@ -88,7 +90,8 @@ class StaticInventory:
         pass
 
   def _parse_yaml(self, yml_obj):
-    '''
+    '''parse yaml
+
     Take in data loaded from a yml file,
     and parse it for groups, hosts and vars.
     '''
@@ -143,21 +146,21 @@ class StaticInventory:
   def _calc_group_tree(self):
     '''
     Calculate the group tree for all hosts and groups.
-   
-    This function does 3 things: 
+
+    This function does 3 things:
       - determine which groups are "top_level_groups"
       - determine which groups are not, assigning them to "child_groups"
       - within child_groups, assign a var "parent_groups" to each group for later lookup
 
-    By having this additional info (i.e. which groups are top_level_groups, and a lookup table 
+    By having this additional info (i.e. which groups are top_level_groups, and a lookup table
       to determine the parent_groups of all non top_level_groups, we can easily build a graph showing
-      the relationship for any group or host, all the way back to its top level group. 
+      the relationship for any group or host, all the way back to its top level group.
     '''
 
     # ORDER OF LOGIC
     #   loop through all groups:
-    #       if this group NOT already in child_groups 
-    #       AND 
+    #       if this group NOT already in child_groups
+    #       AND
     #       if this group NOT already in top_level_groups:
     #           add to top_level_groups list
     #
@@ -170,14 +173,13 @@ class StaticInventory:
     #               if group NOT in child['parent_groups']:
     #                   add it
 
-
     for group in self.inventory['groups']:
-        # if this group NOT already in child_groups 
-        # AND 
+        # if this group NOT already in child_groups
+        # AND
         # if this group NOT already in top_level_groups:
         if (
-            group not in self.inventory['child_groups'] 
-            and 
+            group not in self.inventory['child_groups']
+            and
             group not in self.inventory['top_level_groups']
         ):
             # add to top_level_groups list
@@ -189,7 +191,7 @@ class StaticInventory:
                 # if child in top_level_groups:
                 if child in self.inventory['top_level_groups']:
                     # remove it
-                    self.inventory['top_level_groups'].pop(child) 
+                    self.inventory['top_level_groups'].pop(child)
 
                 # if child NOT in child_groups:
                 if child not in self.inventory['child_groups']:
@@ -198,5 +200,4 @@ class StaticInventory:
                 # if group NOT in child['parent_groups']:
                 if group not in self.inventory['child_groups'][child]['parent_groups']:
                     # add it
-                    self.inventory['child_groups'][child]['parent_groups'][group] = {} 
-
+                    self.inventory['child_groups'][child]['parent_groups'][group] = {}

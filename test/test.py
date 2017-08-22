@@ -2,12 +2,9 @@
 import unittest
 import sys
 import json
-# import os
-# from .context import bovine
 
-# sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 sys.path.append('lib/')
-from bovine.inventory import *
+from bovine.inventory import StaticInventory
 
 
 class TestStaticInventory(unittest.TestCase):
@@ -34,12 +31,14 @@ class TestStaticInventory(unittest.TestCase):
 
     def test_hosts_key(self):
         hosts_should_have = {
-            "host1": { "foo": "bar1" },
-            "host2": { "foo": "bar2" },
-            "host3": { "foo": "bar3" },
-            "host4": { "foo": "bar4" },
-            "host5": { "foo": "bar5" },
-            "host6": { "foo": "bar6" },
+            "host1": {"foo": "bar1"},
+            "host2": {"foo": "bar2"},
+            "host3": {"foo": "bar3"},
+            "host4": {"foo": "bar4"},
+            "host5": {"foo": "bar5"},
+            "host6": {"foo": "bar6"},
+            "web_host1": {"url": "web_host1"},
+            "web_host2": {"url": "web_host2"},
         }
         self.assertCountEqual(hosts_should_have, self.test_inventory.inventory['hosts'])
 
@@ -47,6 +46,7 @@ class TestStaticInventory(unittest.TestCase):
         top_level_groups_should_have = {
             "group1": {},
             "group6": {},
+            "web_group1": {},
         }
         self.assertCountEqual(top_level_groups_should_have, self.test_inventory.inventory['top_level_groups'])
 
