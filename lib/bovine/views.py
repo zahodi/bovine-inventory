@@ -18,7 +18,7 @@ def return_all():
 
 
 @api.route('/api/hosts', methods=['POST'])
-def api_host():
+def api_hosts():
   params = request.args
   if 'search' in params['action']:
     response_info = bovine_interface.search(inv_type='hosts', keyword=params['name'])
@@ -27,9 +27,18 @@ def api_host():
 
 
 @api.route('/api/groups', methods=['POST'])
-def api_group():
+def api_groups():
   params = request.args
   if 'search' in params['action']:
     response_info = bovine_interface.search(inv_type='groups', keyword=params['name'])
+
+  return json.dumps(response_info, indent=4)
+
+
+@api.route('/api/vars', methods=['POST'])
+def api_vars():
+  params = request.args
+  if 'list' in params['action']:
+    response_info = bovine_interface.vars_list(inv_type=params['type'], keyword=params['name'])
 
   return json.dumps(response_info, indent=4)

@@ -28,8 +28,24 @@ class Interface(object):
     if (inv_type == 'hosts') or (inv_type == 'groups'):
       result = [i for i in self.inventory[inv_type] if re.search(keyword, i)]
     else:
-      # Possily in future enable search on both types
-      result = "Wrong type"
+      # Possibly in future enable search on both types
+      result = "Wrong type requested"
+
+    if result == []:
+      result = "no results"
+
+    return result
+
+  def vars_list(self, inv_type, keyword):
+    """Search the inventory
+
+    Any, hosts, and groups types are allowed.
+    """
+    if (inv_type == 'hosts') or (inv_type == 'groups'):
+      result = self.inventory[inv_type][keyword]
+    else:
+      # Possibly in future enable search on both types
+      result = "Wrong type requested"
 
     if result == []:
       result = "no results"
