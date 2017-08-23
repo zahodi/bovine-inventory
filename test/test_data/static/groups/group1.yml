@@ -2,9 +2,11 @@
 group1:
   children:
     - group2
+    - group3
+    - group4
 
   hosts:
-    - host1 
+    - host1
 
   vars:
     foo: bar

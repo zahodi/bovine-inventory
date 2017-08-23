@@ -42,3 +42,12 @@ def api_vars():
     response_info = bovine_interface.vars_list(inv_type=params['type'], keyword=params['name'])
 
   return json.dumps(response_info, indent=4)
+
+
+@api.route('/api/children', methods=['POST'])
+def api_children():
+  params = request.args
+  if 'list' in params['action']:
+    response_info = bovine_interface.children_list(inv_type='groups', keyword=params['name'])
+
+  return json.dumps(response_info, indent=4)

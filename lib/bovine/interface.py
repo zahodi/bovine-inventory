@@ -23,7 +23,7 @@ class Interface(object):
   def search(self, inv_type, keyword):
     """Search the inventory
 
-    Any, hosts, and groups types are allowed.
+    As of right now only hosts and groups types are allowed.
     """
     if (inv_type == 'hosts') or (inv_type == 'groups'):
       result = [i for i in self.inventory[inv_type] if re.search(keyword, i)]
@@ -37,16 +37,30 @@ class Interface(object):
     return result
 
   def vars_list(self, inv_type, keyword):
-    """Search the inventory
+    """List vars
 
-    Any, hosts, and groups types are allowed.
+    List group or host vars
     """
     if (inv_type == 'hosts') or (inv_type == 'groups'):
-      result = self.inventory[inv_type][keyword]
+      if inv_type == 'groups':
+        result = self.inventory[inv_type][keyword]['vars']
+      else:
+        result = self.inventory[inv_type][keyword]
     else:
       # Possibly in future enable search on both types
       result = "Wrong type requested"
 
+    if result == []:
+      result = "no results"
+
+    return result
+
+  def children_list(self, inv_type, keyword):
+    """List children
+
+    List group children
+    """
+    result = self.inventory[inv_type][keyword]['children']
     if result == []:
       result = "no results"
 
