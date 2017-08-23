@@ -48,6 +48,6 @@ def api_vars():
 def api_children():
   params = request.args
   if 'list' in params['action']:
-    response_info = bovine_interface.children_list(inv_type='groups', keyword=params['name'])
+    response_info = bovine_interface.children_list(keyword=params['name'])
 
   return json.dumps(response_info, indent=4)
