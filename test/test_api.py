@@ -34,5 +34,23 @@ class TestIntegrations(TestCase):
     print("group1 children are: ", payload)
     self.assertEqual(payload, ["group2", "group3", "group4"])
 
+  def test_search_hosts(self):
+    response = self.app.post('api/hosts?action=search&name=web')
+    payload = json.loads(response.get_data(response))
+    print("Host search results are : ", payload)
+    self.assertEqual(payload, ["web_host1", "web_host2"])
+
+  def test_search_groups(self):
+    response = self.app.post('api/groups?action=search&name=web')
+    payload = json.loads(response.get_data(response))
+    print("Group search results are : ", payload)
+    self.assertEqual(payload, ["web_group1", "web_group2"])
+
+  def test_search_hosts_no_response(self):
+    response = self.app.post('api/hosts?action=search&name=group')
+    payload = json.loads(response.get_data(response))
+    print("The response is : ", payload)
+    self.assertEqual(payload, "no results")
+
 if __name__ == "__main__":
     unittest.main()
