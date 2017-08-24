@@ -17,28 +17,28 @@ class TestIntegrations(TestCase):
     self.assertEqual(payload, {'hello': 'world'})
 
   def test_list_groups_vars(self):
-    response = self.app.post('api/vars?action=list&name=group1&type=groups')
+    response = self.app.get('api/vars?action=list&name=group1&type=groups')
     payload = json.loads(response.get_data(response))
     print("#########################################################")
     print("group1 vars are: ", payload)
     self.assertEqual(payload, {'foo': 'bar'})
 
   def test_list_hosts_vars(self):
-    response = self.app.post('api/vars?action=list&name=host1&type=hosts')
+    response = self.app.get('api/vars?action=list&name=host1&type=hosts')
     payload = json.loads(response.get_data(response))
     print("#########################################################")
     print("host1 vars are: ", payload)
     self.assertEqual(payload, {'foo': 'bar1'})
 
   def test_list_children(self):
-    response = self.app.post('api/children?action=list&name=group1')
+    response = self.app.get('api/children?action=list&name=group1')
     payload = json.loads(response.get_data(response))
     print("#########################################################")
     print("group1 children are: ", payload)
     self.assertEqual(payload, ["group2", "group3", "group4"])
 
   def test_search_hosts(self):
-    response = self.app.post('api/hosts?action=search&name=web')
+    response = self.app.get('api/hosts?action=search&name=web')
     payload = json.loads(response.get_data(response))
     print("#########################################################")
     print("Searching for any hosts which includes keyword: web")
@@ -46,7 +46,7 @@ class TestIntegrations(TestCase):
     self.assertEqual(payload, ["web_host1", "web_host2"])
 
   def test_search_groups(self):
-    response = self.app.post('api/groups?action=search&name=web')
+    response = self.app.get('api/groups?action=search&name=web')
     payload = json.loads(response.get_data(response))
     print("#########################################################")
     print("Searching for any groups which includes keyword: web")
@@ -54,7 +54,7 @@ class TestIntegrations(TestCase):
     self.assertEqual(payload, ["web_group1", "web_group2"])
 
   def test_search_hosts_no_response(self):
-    response = self.app.post('api/hosts?action=search&name=group')
+    response = self.app.get('api/hosts?action=search&name=group')
     payload = json.loads(response.get_data(response))
     print("#########################################################")
     print("The response is : ", payload)
