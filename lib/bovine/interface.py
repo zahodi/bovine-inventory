@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 from bovine.inventory import StaticInventory
+import re
 
 
 class Interface(object):
@@ -14,7 +15,37 @@ class Interface(object):
   def get_all(self):
     """Return the whole inventory
 
-    We will get the whole inventory
+    This will return the whole inventory:
+
+    Return
+    ------
+    {
+      "hosts": {
+        "host1":
+          "var1": "value1"
+        }
+      }
+      "groups": {
+        "group1": {
+          "vars": {
+            "var1": "value1"
+          },
+          "children": [
+            "group2"
+          ],
+          "children": [
+            "group2"
+          ]
+          "hosts": [
+              "host1"
+          ]
+        }
+      }
+      "top_level_groups": {
+          "group1": {},
+          "group6": {}
+      }
+    }
     """
     test_inventory = StaticInventory(root_directory='test/test_data/static/')
     return test_inventory.inventory
@@ -22,26 +53,85 @@ class Interface(object):
   def search(self, inv_type, keyword):
     """Search the inventory
 
-    Any, hosts, and groups types are allowed.
+    Search the inventory for hosts or group. As of right now only hosts and
+    groups types are allowed.
+
+    Parameters
+    ----------
+    inv_type: str
+      Type of inventory to look for. Hosts or groups
+    keyword: str
+      Lookup name
+
+    Returns
+    ----------
+    [
+      "host1",
+      "host2"
+    ]
     """
     if (inv_type == 'hosts') or (inv_type == 'groups'):
-      return self.inventory[inv_type][keyword]
-    elif inv_type == 'any':
-      list_of_groups = []
-      list_of_hosts = []
-      response_info = {
-        "status": "success",  # to add failure later
-        "data": {
-          "groups": list_of_groups,
-          "hosts": list_of_hosts
-        }
-      }
-      if keyword in self.inventory['groups']:
-        list_of_groups.append(keyword)
-      if keyword in self.inventory['hosts']:
-        list_of_hosts.append(keyword)
-
+      result = [i for i in self.inventory[inv_type] if re.search(keyword, i)]
     else:
-      pass  # fail because only hosts, groups, or any are allowed in the "types"
+      # Possibly in future enable search on both types
+      result = "Wrong type requested"
 
-    return response_info
+    if result == []:
+      result = "no results"
+
+    return result
+
+  def vars_list(self, inv_type, keyword):
+    """List vars
+
+    List group or host vars.
+
+    Parameters
+    ----------
+    inv_type: str
+      Type of inventory to look for. Hosts or groups
+    keyword: str
+      host or group name
+
+    Returns
+    ----------
+    {
+      "var1": "value1"
+    }
+    """
+    if (inv_type == 'hosts') or (inv_type == 'groups'):
+      if inv_type == 'groups':
+        result = self.inventory[inv_type][keyword]['vars']
+      else:
+        result = self.inventory[inv_type][keyword]
+    else:
+      # Possibly in future enable search on both types
+      result = "Wrong type requested"
+
+    if result == []:
+      result = "no results"
+
+    return result
+
+  def children_list(self, keyword):
+    """List children
+
+    List children of a specified group
+
+    Parameters
+    ----------
+    keyword: str
+      group name
+
+    Returns
+    ----------
+    [
+      "group1",
+      "group2"
+    ]
+    """
+    result = self.inventory['groups'][keyword]['children']
+    if result == []:
+      result = "no results"
+
+    return result
