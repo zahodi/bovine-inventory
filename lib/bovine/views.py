@@ -17,7 +17,7 @@ def return_all():
   return json.dumps(test_inventory, indent=4)
 
 
-@api.route('/api/hosts', methods=['POST'])
+@api.route('/api/hosts', methods=['GET', 'POST'])
 def api_hosts():
   params = request.args
   if 'search' in params['action']:
@@ -26,7 +26,7 @@ def api_hosts():
   return json.dumps(response_info, indent=4)
 
 
-@api.route('/api/groups', methods=['POST'])
+@api.route('/api/groups', methods=['GET', 'POST'])
 def api_groups():
   params = request.args
   if 'search' in params['action']:
@@ -35,7 +35,7 @@ def api_groups():
   return json.dumps(response_info, indent=4)
 
 
-@api.route('/api/vars', methods=['POST'])
+@api.route('/api/vars', methods=['GET', 'POST'])
 def api_vars():
   params = request.args
   if 'list' in params['action']:
@@ -44,7 +44,7 @@ def api_vars():
   return json.dumps(response_info, indent=4)
 
 
-@api.route('/api/children', methods=['POST'])
+@api.route('/api/children', methods=['GET', 'POST'])
 def api_children():
   params = request.args
   if 'list' in params['action']:
